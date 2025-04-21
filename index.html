@@ -368,12 +368,12 @@
                     const maxDuration = 5; // 가장 오래 돌아가는 릴 기준
                     setTimeout(() => {
                         showConnectionLine();
-
-                        // AIMO 결과를 2초간 보여준 후 다시 회전 시작
+                        
+                        // AIMO 결과를 5초간 보여준 후 다시 회전 시작
                         setTimeout(() => {
                             isSpinning = false;
                             spinReels();
-                        }, 2000);
+                        }, 5000);
                     }, maxDuration * 1000);
                 }
 
