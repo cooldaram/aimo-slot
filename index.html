@@ -323,8 +323,7 @@
             document.addEventListener("DOMContentLoaded", function () {
                 const slots = document.querySelectorAll(".slot");
                 const reels = document.querySelectorAll(".reel-container");
-                const connectionLine =
-                    document.getElementById("connectionLine");
+                const connectionLine = document.getElementById("connectionLine");
                 let isSpinning = false;
 
                 // 초기 위치 설정 (각 릴의 첫 번째 아이템 표시)
@@ -335,14 +334,19 @@
 
                 // 연결 라인 위치 계산 및 설정
                 function setupConnectionLine() {
+                    const slotMachine = document.querySelector(".slot-machine");
+                    const slotMachineRect = slotMachine.getBoundingClientRect();
+                    const containerRect = document.querySelector(".container").getBoundingClientRect();
+                    
                     const firstSlot = slots[0].getBoundingClientRect();
-                    const lastSlot =
-                        slots[slots.length - 1].getBoundingClientRect();
+                    const lastSlot = slots[slots.length - 1].getBoundingClientRect();
 
+                    // 라인 위치와 길이 계산 (컨테이너 기준으로 상대적 위치)
+                    const lineStart = firstSlot.left - containerRect.left;
                     const lineWidth = lastSlot.right - firstSlot.left;
+                    
                     connectionLine.style.width = "0";
-                    connectionLine.style.left =
-                        firstSlot.left - firstSlot.left + "px";
+                    connectionLine.style.left = lineStart + "px";
 
                     return lineWidth;
                 }
