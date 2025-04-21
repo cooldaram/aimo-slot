@@ -335,18 +335,29 @@
                 // 연결 라인 위치 계산 및 설정
                 function setupConnectionLine() {
                     const slotMachine = document.querySelector(".slot-machine");
+                    const firstSlot = slots[0];
+                    const lastSlot = slots[slots.length - 1];
+                    
+                    // 슬롯의 크기와 위치 계산을 위한 getComputedStyle 사용
+                    const firstSlotRect = firstSlot.getBoundingClientRect();
+                    const lastSlotRect = lastSlot.getBoundingClientRect();
+                    
+                    // 첫 번째 슬롯의 정중앙에서 시작
+                    const startPoint = firstSlotRect.left;
+                    
+                    // 마지막 슬롯의 오른쪽 끝에서 종료
+                    const endPoint = lastSlotRect.right;
+                    
+                    // 라인 너비 계산 (시작점에서 끝점까지의 정확한 거리)
+                    const lineWidth = endPoint - startPoint;
+                    
+                    // 슬롯 머신 내에서의 상대적 위치 계산
                     const slotMachineRect = slotMachine.getBoundingClientRect();
-                    const containerRect = document.querySelector(".container").getBoundingClientRect();
-                    
-                    const firstSlot = slots[0].getBoundingClientRect();
-                    const lastSlot = slots[slots.length - 1].getBoundingClientRect();
+                    const relativeStart = startPoint - slotMachineRect.left;
 
-                    // 라인 위치와 길이 계산 (컨테이너 기준으로 상대적 위치)
-                    const lineStart = firstSlot.left - containerRect.left;
-                    const lineWidth = lastSlot.right - firstSlot.left;
-                    
-                    connectionLine.style.width = "0";
-                    connectionLine.style.left = lineStart + "px";
+                    // 라인 위치 설정
+                    connectionLine.style.left = relativeStart + "px";
+                    connectionLine.style.width = "0";  // 애니메이션을 위해 처음에는 0으로 설정
 
                     return lineWidth;
                 }
